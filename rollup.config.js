@@ -1,37 +1,35 @@
 const nodeResolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
+const changeCase = require('change-case');
+const createBanner = require('create-banner');
 const pkg = require('./package');
 
-const now = new Date();
-const banner = `/*!
- * createVueComponent v${pkg.version}
- * https://github.com/${pkg.repository}
- *
- * Copyright (c) 2018-present ${pkg.author.name}
- * Released under the ${pkg.license} license
- *
- * Date: ${now.toISOString()}
- */
-`;
+pkg.name = pkg.name.replace(/^.+\//, '');
+
+const banner = createBanner({
+  data: {
+    year: '2018-present',
+  },
+});
 
 module.exports = {
   input: 'src/index.js',
   output: [
     {
       banner,
-      file: 'dist/create-vue-component.js',
+      name: changeCase.camelCase(pkg.name),
+      file: `dist/${pkg.name}.js`,
       format: 'umd',
-      name: 'createVueComponent',
     },
     {
       banner,
-      file: 'dist/create-vue-component.common.js',
+      file: `dist/${pkg.name}.common.js`,
       format: 'cjs',
     },
     {
       banner,
-      file: 'dist/create-vue-component.esm.js',
-      format: 'es',
+      file: `dist/${pkg.name}.esm.js`,
+      format: 'esm',
     },
   ],
   plugins: [
