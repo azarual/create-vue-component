@@ -44,8 +44,15 @@ describe('create-vue-component', () => {
     });
 
     it('should support function as value', () => {
-      const content = createElement => createElement('p', 'Hello, World!');
-      const vm = new Vue(createVueComponent(content)).$mount();
+      const content = (createElement, data, context) => {
+        expect(context).to.be.an.instanceOf(Vue);
+        return createElement('p', `Hello, ${data.name}!`);
+      };
+      const vm = new Vue(createVueComponent(content, {
+        data: {
+          name: 'World',
+        },
+      })).$mount();
 
       expect(vm.$el.textContent).to.equal('Hello, World!');
     });

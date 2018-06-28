@@ -15,7 +15,7 @@ export default function createVueComponent(content, options = {}) {
     component = { ...content };
   } else if (typeof content === 'function') {
     component.render = function render(createElement) {
-      return content.call(this, createElement, options.data);
+      return content.call(this, createElement, options.data, this);
     };
   } else {
     const tag = options.tag || 'span';
