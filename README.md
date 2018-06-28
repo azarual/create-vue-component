@@ -81,10 +81,12 @@ createVueComponent(1);
 createVueComponent(['Hello', 'World']);
 // will render as: <span>Hello,World</span>
 
-createVueComponent(function content(createElement, data) {
-  return createElement('p', data)
+createVueComponent(function content(createElement, data, context) {
+  return createElement('p', `Hello, ${data.name}!`);
 }, {
-  data: 'Hello, World!',
+  data: {
+    name: 'World',
+  },
 });
 // will render as: <p>Hello, World!</p>
 
@@ -106,4 +108,4 @@ createVueComponent();
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Chen Fengyuan](http://chenfengyuan.com)
+[MIT](https://opensource.org/licenses/MIT) © [Chen Fengyuan](https://chenfengyuan.com)

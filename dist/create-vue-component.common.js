@@ -1,11 +1,11 @@
 /*!
- * create-vue-component v1.0.0
+ * create-vue-component v1.1.0
  * https://github.com/fengyuanchen/create-vue-component
  *
  * Copyright 2018-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2018-05-23T13:55:11.173Z
+ * Date: 2018-06-28T13:45:18.559Z
  */
 
 'use strict';
@@ -118,7 +118,7 @@ function createVueComponent(content) {
     component = _extends({}, content);
   } else if (typeof content === 'function') {
     component.render = function render(createElement) {
-      return content.call(this, createElement, options.data);
+      return content.call(this, createElement, options.data, this);
     };
   } else {
     var tag = options.tag || 'span';
